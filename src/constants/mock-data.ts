@@ -1,0 +1,42 @@
+export const data = [
+  {
+    question: "what is your name?",
+    option1: "tuba",
+    option2: "ali",
+    option3: "mona",
+    option4: "mohammad",
+    ans: 1,
+  },
+  {
+    question: "what is your favorite color?",
+    option1: "blue",
+    option2: "black",
+    option3: "purple",
+    option4: "green",
+    ans: 3,
+  },
+  {
+    question: "what is your favorite animal?",
+    option1: "cat",
+    option2: "panda",
+    option3: "dog",
+    option4: "horse",
+    ans: 4,
+  },
+  {
+    question: "How old are you?",
+    option1: "16",
+    option2: "18",
+    option3: "24",
+    option4: "30",
+    ans: 3,
+  },
+  {
+    question: "where do you live?",
+    option1: "shiraz",
+    option2: "ahvaz",
+    option3: "rasht",
+    option4: "tehran",
+    ans: 1,
+  },
+];

@@ -1,9 +1,10 @@
-import HomeComponent from "../../components/home-component/HomeComponent";
+
+import { Quiz } from "../../components/quiz/Quiz";
 
 export default function HomePage() {
   return (
     <div>
-      <HomeComponent />
+      <Quiz />
     </div>
   );
 }
