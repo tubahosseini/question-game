@@ -25,16 +25,16 @@ export default function Setup() {
     setCategory("");
     setDifficulty("");
   }
-
-  console.log(data);
+  // test
+  console.log(data[0]);
 
   return (
     <div className="flex items-center justify-center h-screen">
       <div className="w-[640px] bg-white text-[#262626] rounded-xl py-[40px] px-[50px] flex flex-col gap-5">
-        <h1 className="text-4xl text-center font-serif">Quiz App</h1>
+        <h1 className="text-4xl text-center font-serif"> Setup Quiz</h1>
         <hr className="border-none h-[2px] bg-[#707070]" />
         <div className="mt-4">
-          <p>Number of questions:</p>
+          <p className="font-semibold">Number of questions:</p>
           <input
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
@@ -44,13 +44,13 @@ export default function Setup() {
           />
         </div>
         <div>
-          <p>Category :</p>
+          <p className="font-semibold">Category :</p>
           <select
             value={category}
             onChange={(e) => setCategory(e.target.value)}
             className="w-full p-1 border mt-1 outline-none"
             name="category"
-            id=""
+            // id=""
           >
             <option value="">category</option>
             <option value="10">Books</option>
@@ -59,13 +59,13 @@ export default function Setup() {
           </select>
         </div>
         <div>
-          <p>Difficulty :</p>
+          <p className="font-semibold">Difficulty :</p>
           <select
             value={difficulty}
             onChange={(e) => setDifficulty(e.target.value)}
             className="w-full p-1 border mt-1 outline-none"
             name="category"
-            id=""
+            // id=""
           >
             <option value="">difficulty</option>
             <option value="easy">Easy</option>
@@ -73,7 +73,11 @@ export default function Setup() {
             <option value="hard">Hard</option>
           </select>
         </div>
-        <button onClick={() => getData()} type="submit" className="bg-[#2E1437] text-white m-auto w-[150px] h-[50px] font-semibold">
+        <button
+          onClick={() => getData()}
+          type="submit"
+          className="bg-[#2E1437] text-white m-auto w-[150px] h-[50px] font-semibold rounded-md"
+        >
           Start
         </button>
       </div>

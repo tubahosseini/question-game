@@ -1,7 +1,6 @@
-
 import { Quiz } from "../../components/quiz/Quiz";
 
-export default function HomePage() {
+export default function QuizPage() {
   return (
     <div>
       <Quiz />
