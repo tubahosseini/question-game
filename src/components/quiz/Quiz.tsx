@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { data } from "../../constants/mock-data";
+import { useNavigate } from "react-router";
 
 export const Quiz = () => {
   let [index, setIndex] = useState(0);
@@ -7,6 +8,7 @@ export const Quiz = () => {
   const [lock, setLock] = useState(false);
   const [score, setScore] = useState(0);
   let [result, setResult] = useState(false);
+  const navigate = useNavigate();
 
   const checkAns = (e: any, ans: number): void => {
     if (!lock) {
@@ -45,6 +47,7 @@ export const Quiz = () => {
     setScore(0);
     setLock(false);
     setResult(false);
+    navigate("/setup");
   };
 
   return (

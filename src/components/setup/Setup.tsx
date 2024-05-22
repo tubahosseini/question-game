@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface dataType {
   category: string;
@@ -15,6 +16,12 @@ export default function Setup() {
   const [amount, setAmount] = useState("");
   const [category, setCategory] = useState("");
   const [difficulty, setDifficulty] = useState("");
+  const navigate = useNavigate();
+
+  const start = () => {
+    getData();
+    navigate("/quiz");
+  };
 
   async function getData() {
     const response = await axios.get(
@@ -74,7 +81,7 @@ export default function Setup() {
           </select>
         </div>
         <button
-          onClick={() => getData()}
+          onClick={start}
           type="submit"
           className="bg-[#2E1437] text-white m-auto w-[150px] h-[50px] font-semibold rounded-md"
         >
