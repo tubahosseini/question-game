@@ -1,8 +1,9 @@
 import axios from "axios";
 import { useState } from "react";
+import { useData } from "../../context/DataContext";
 import { useNavigate } from "react-router-dom";
 
-interface dataType {
+export interface dataType {
   category: string;
   type: string;
   difficulty: string;
@@ -12,33 +13,34 @@ interface dataType {
 }
 
 export default function Setup() {
-  const [data, setData] = useState<dataType[]>([]);
+  const { data, setData } = useData();
   const [amount, setAmount] = useState("");
   const [category, setCategory] = useState("");
   const [difficulty, setDifficulty] = useState("");
   const navigate = useNavigate();
 
-  const start = () => {
-    getData();
+  const start = async () => {
+    await getData();
     navigate("/quiz");
   };
+  //test
+  console.log(data);
 
   async function getData() {
     const response = await axios.get(
       `https://opentdb.com/api.php?amount=${amount}&category=${category}&difficulty=${difficulty}&type=multiple`
     );
     setData(response.data.results);
+    console.log(response.data.results[0]);
     setAmount("");
     setCategory("");
     setDifficulty("");
   }
-  // test
-  console.log(data[0]);
 
   return (
     <div className="flex items-center justify-center h-screen">
       <div className="w-[640px] bg-white text-[#262626] rounded-xl py-[40px] px-[50px] flex flex-col gap-5">
-        <h1 className="text-4xl text-center font-serif"> Setup Quiz</h1>
+        <h1 className="text-4xl text-center font-serif">Setup Quiz</h1>
         <hr className="border-none h-[2px] bg-[#707070]" />
         <div className="mt-4">
           <p className="font-semibold">Number of questions:</p>
@@ -57,7 +59,6 @@ export default function Setup() {
             onChange={(e) => setCategory(e.target.value)}
             className="w-full p-1 border mt-1 outline-none"
             name="category"
-            // id=""
           >
             <option value="">category</option>
             <option value="10">Books</option>
@@ -72,7 +73,6 @@ export default function Setup() {
             onChange={(e) => setDifficulty(e.target.value)}
             className="w-full p-1 border mt-1 outline-none"
             name="category"
-            // id=""
           >
             <option value="">difficulty</option>
             <option value="easy">Easy</option>

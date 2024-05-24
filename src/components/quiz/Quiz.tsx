@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import { realData } from "../../constants/mock-data";
+import { useData } from "../../context/DataContext";
 
 export const Quiz = () => {
+  const { data } = useData();
   let [index, setIndex] = useState(0);
-  const [question, setQuestion] = useState(realData[index]);
+  const [question, setQuestion] = useState(data[index]);
+  let [result, setResult] = useState(false);
   const [lock, setLock] = useState(false);
   const [score, setScore] = useState(0);
-  let [result, setResult] = useState(false);
   const navigate = useNavigate();
 
   const checkAns = (e: any): void => {
@@ -26,7 +27,7 @@ export const Quiz = () => {
 
   const next = () => {
     if (lock) {
-      if (index === realData.length - 1) {
+      if (index === data.length - 1) {
         setResult(true);
         return 0;
       }
@@ -37,14 +38,14 @@ export const Quiz = () => {
     }
     if (lock) {
       setIndex(++index);
-      setQuestion(realData[index]);
+      setQuestion(data[index]);
       setLock(false); // why here????
     }
   };
 
   const reset = () => {
     setIndex(0);
-    setQuestion(realData[0]);
+    setQuestion(data[0]);
     setScore(0);
     setLock(false);
     setResult(false);
@@ -59,7 +60,7 @@ export const Quiz = () => {
         {result ? (
           <>
             <h2 className="text-3xl mt-6 text-center">
-              Your Score : {(score / realData.length) * 100}%
+              Your Score : {(score / data.length) * 100}%
             </h2>
             <button
               onClick={reset}
@@ -106,7 +107,7 @@ export const Quiz = () => {
               Next
             </button>
             <div className="m-auto text-[18px]">
-              {index + 1} of {realData.length} questions
+              {index + 1} of {data.length} questions
             </div>
           </>
         )}
