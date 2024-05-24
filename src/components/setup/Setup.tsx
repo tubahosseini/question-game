@@ -64,9 +64,11 @@ export default function Setup() {
   console.log(data);
 
   return (
-    <div className="flex items-center justify-center h-screen">
-      <div className="w-[640px] bg-white text-[#262626] rounded-xl py-[40px] px-[50px] flex flex-col gap-5">
-        <h1 className="text-4xl text-center font-serif">Setup Quiz</h1>
+    <div className="flex items-center justify-center h-screen px-4 md:px-8 lg:px-16">
+      <div className="w-full max-w-lg bg-white text-[#262626] rounded-xl py-8 px-6 md:py-12 md:px-10 lg:py-16 lg:px-16 flex flex-col gap-5">
+        <h1 className="text-3xl md:text-4xl text-center font-serif">
+          Setup Quiz
+        </h1>
         <hr className="border-none h-[2px] bg-[#707070]" />
         <div className="mt-4">
           <p className="font-semibold">Number of questions:</p>
@@ -118,7 +120,7 @@ export default function Setup() {
         <button
           onClick={start}
           type="submit"
-          className="bg-[#2E1437] text-white m-auto w-[150px] h-[50px] font-semibold rounded-md"
+          className="glow-on-hover text-white m-auto w-full max-w-[150px] h-[50px] font-semibold rounded-md"
         >
           Start
         </button>

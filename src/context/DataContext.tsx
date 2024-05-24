@@ -1,4 +1,3 @@
-// src/context/DataContext.tsx
 import React, { createContext, useState, useContext, ReactNode } from "react";
 import { dataType } from "../components/setup/Setup";
 
