@@ -17,14 +17,8 @@ export default function Setup() {
   const [amount, setAmount] = useState("");
   const [category, setCategory] = useState("");
   const [difficulty, setDifficulty] = useState("");
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const navigate = useNavigate();
-
-  const start = async () => {
-    await getData();
-    navigate("/quiz");
-  };
-  //test
-  console.log(data);
 
   async function getData() {
     const response = await axios.get(
@@ -36,6 +30,38 @@ export default function Setup() {
     setCategory("");
     setDifficulty("");
   }
+
+  const start = async () => {
+    if (validate()) {
+      await getData();
+      navigate("/quiz");
+    }
+  };
+
+  const validate = () => {
+    let tempErrors: { [key: string]: string } = {};
+
+    if (!amount) {
+      tempErrors.amount = "This field can't be empty";
+    } else if (parseInt(amount) < 5 || parseInt(amount) > 10) {
+      tempErrors.amount = "Please enter a valid number between 5 and 10";
+    }
+
+    if (!category) {
+      tempErrors.category = "Please select a category";
+    }
+
+    if (!difficulty) {
+      tempErrors.difficulty = "Please select a difficulty";
+    }
+
+    setErrors(tempErrors);
+
+    return Object.keys(tempErrors).length === 0;
+  };
+
+  //test
+  console.log(data);
 
   return (
     <div className="flex items-center justify-center h-screen">
@@ -51,6 +77,9 @@ export default function Setup() {
             type="number"
             placeholder="Between 5 and 10"
           />
+          {errors.amount && (
+            <p className="text-red-500 text-sm mt-1">{errors.amount}</p>
+          )}
         </div>
         <div>
           <p className="font-semibold">Category :</p>
@@ -65,6 +94,9 @@ export default function Setup() {
             <option value="21">Sport</option>
             <option value="27">Animals</option>
           </select>
+          {errors.category && (
+            <p className="text-red-500 text-sm mt-1">{errors.category}</p>
+          )}
         </div>
         <div>
           <p className="font-semibold">Difficulty :</p>
@@ -79,6 +111,9 @@ export default function Setup() {
             <option value="medium">Medium</option>
             <option value="hard">Hard</option>
           </select>
+          {errors.difficulty && (
+            <p className="text-red-500 text-sm mt-1">{errors.difficulty}</p>
+          )}
         </div>
         <button
           onClick={start}
