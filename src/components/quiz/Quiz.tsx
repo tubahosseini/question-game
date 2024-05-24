@@ -1,18 +1,19 @@
 import { useState } from "react";
-import { data } from "../../constants/mock-data";
 import { useNavigate } from "react-router";
+import { realData } from "../../constants/mock-data";
 
 export const Quiz = () => {
   let [index, setIndex] = useState(0);
-  const [question, setQuestion] = useState(data[index]);
+  const [question, setQuestion] = useState(realData[index]);
   const [lock, setLock] = useState(false);
   const [score, setScore] = useState(0);
   let [result, setResult] = useState(false);
   const navigate = useNavigate();
 
-  const checkAns = (e: any, ans: number): void => {
+  const checkAns = (e: any): void => {
     if (!lock) {
-      if (question.ans === ans) {
+      console.log(e.target.innerText);
+      if (question.correct_answer === e.target.innerText) {
         e.target.classList.add("correct");
         setLock(true);
         setScore(score + 1);
@@ -25,7 +26,7 @@ export const Quiz = () => {
 
   const next = () => {
     if (lock) {
-      if (index === data.length - 1) {
+      if (index === realData.length - 1) {
         setResult(true);
         return 0;
       }
@@ -36,14 +37,14 @@ export const Quiz = () => {
     }
     if (lock) {
       setIndex(++index);
-      setQuestion(data[index]);
-      setLock(false); // why are we doing it here????
+      setQuestion(realData[index]);
+      setLock(false); // why here????
     }
   };
 
   const reset = () => {
     setIndex(0);
-    setQuestion(data[0]);
+    setQuestion(realData[0]);
     setScore(0);
     setLock(false);
     setResult(false);
@@ -58,7 +59,7 @@ export const Quiz = () => {
         {result ? (
           <>
             <h2 className="text-3xl mt-6 text-center">
-              Your Score : {(score / data.length) * 100}%
+              Your Score : {(score / realData.length) * 100}%
             </h2>
             <button
               onClick={reset}
@@ -74,36 +75,28 @@ export const Quiz = () => {
             </h2>
             <ul>
               <li
-                onClick={(e) => {
-                  checkAns(e, 1);
-                }}
+                onClick={checkAns}
                 className="flex items-center h-[70px] pl-[15px] border border-[#686868] rounded-md mb-[20px] text-[20px] cursor-pointer"
               >
-                {question.option1}
+                {question.incorrect_answers[0]}
               </li>
               <li
-                onClick={(e) => {
-                  checkAns(e, 2);
-                }}
+                onClick={checkAns}
                 className="flex items-center h-[70px] pl-[15px] border border-[#686868] rounded-md mb-[20px] text-[20px] cursor-pointer"
               >
-                {question.option2}
+                {question.incorrect_answers[1]}
               </li>
               <li
-                onClick={(e) => {
-                  checkAns(e, 3);
-                }}
+                onClick={checkAns}
                 className="flex items-center h-[70px] pl-[15px] border border-[#686868] rounded-md mb-[20px] text-[20px] cursor-pointer"
               >
-                {question.option3}
+                {question.incorrect_answers[2]}
               </li>
               <li
-                onClick={(e) => {
-                  checkAns(e, 4);
-                }}
+                onClick={checkAns}
                 className="flex items-center h-[70px] pl-[15px] border border-[#686868] rounded-md mb-[20px] text-[20px] cursor-pointer"
               >
-                {question.option4}
+                {question.correct_answer}
               </li>
             </ul>
             <button
@@ -113,7 +106,7 @@ export const Quiz = () => {
               Next
             </button>
             <div className="m-auto text-[18px]">
-              {index + 1} of {data.length} questions
+              {index + 1} of {realData.length} questions
             </div>
           </>
         )}
