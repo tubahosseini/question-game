@@ -68,15 +68,15 @@ export const Quiz = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen px-4">
-      <div className="w-full max-w-[640px] bg-white text-[#262626] rounded-xl py-8 px-6 flex flex-col gap-4 md:gap-5">
-        <h1 className="text-3xl md:text-4xl text-center font-serif">
+    <div className="flex items-center justify-center px-2 h-screen">
+      <div className="w-full max-w-[600px] bg-white text-[#262626] rounded-xl py-6 px-4 flex flex-col gap-3 md:gap-4">
+        <h1 className="text-2xl md:text-3xl text-center font-serif">
           Quiz App
         </h1>
         <hr className="border-none h-[2px] bg-[#707070]" />
         {result ? (
           <>
-            <h2 className="text-2xl md:text-3xl mt-4 md:mt-6 text-center">
+            <h2 className="text-xl md:text-2xl mt-3 md:mt-4 text-center">
               Your Score: {Math.floor((score / data.length) * 100)}%
               <p>
                 ({score} out of {data.length})
@@ -84,22 +84,22 @@ export const Quiz = () => {
             </h2>
             <button
               onClick={reset}
-              className="m-auto w-full max-w-[150px] h-[50px] bg-[#2E1437] hover:bg-[#2e1437dc] text-white text-[20px] md:text-[25px] cursor-pointer rounded-lg font-semibold mt-4 md:mt-6"
+              className="m-auto w-full max-w-[140px] h-[45px] bg-[#2E1437] hover:bg-[#2e1437dc] text-white text-[18px] md:text-[22px] cursor-pointer rounded-lg font-semibold mt-3 md:mt-4"
             >
               Reset
             </button>
           </>
         ) : (
           <>
-            <h2 className="text-xl md:text-[27px] font-medium my-4">
+            <h2 className="text-lg md:text-xl font-medium my-3">
               {index + 1}. {question.question}
             </h2>
-            <ul>
+            <ul className="flex-grow overflow-y-auto">
               {shuffledAnswers.map((answer, idx) => (
                 <li
                   key={idx}
                   onClick={checkAns}
-                  className="flex items-center h-[50px] md:h-[70px] pl-4 md:pl-[15px] border border-[#686868] rounded-md mb-2 md:mb-[20px] text-[16px] md:text-[20px] cursor-pointer"
+                  className="flex items-center h-[45px] md:h-[60px] pl-3 md:pl-[12px] border border-[#686868] rounded-md mb-2 md:mb-[18px] text-[14px] md:text-[18px] cursor-pointer"
                 >
                   {answer}
                 </li>
@@ -107,11 +107,11 @@ export const Quiz = () => {
             </ul>
             <button
               onClick={next}
-              className="m-auto w-full max-w-[250px] h-[50px] md:h-[65px] bg-[#2E1437] text-white text-[20px] md:text-[25px] cursor-pointer rounded-lg font-semibold hover:bg-[#2e1437dc]"
+              className="m-auto w-full max-w-[220px] h-[45px] md:h-[55px] bg-[#2E1437] text-white text-[18px] md:text-[22px] rounded-lg font-semibold hover:bg-[#2e1437dc]"
             >
               Next
             </button>
-            <div className="m-auto text-[16px] md:text-[18px] mt-4 md:mt-6">
+            <div className="m-auto text-[14px] md:text-[16px] mt-2 md:mt-3">
               {index + 1} of {data.length} questions
             </div>
           </>

@@ -105,9 +105,10 @@ export default function Setup() {
                 name="category"
               >
                 <option value="">category</option>
-                <option value="10">Books</option>
-                <option value="21">Sport</option>
-                <option value="27">Animals</option>
+                <option value="12">Music</option>
+                <option value="11">Film</option>
+                <option value="19">Mathematics</option>
+                <option value="32">Animation</option>
               </select>
               {errors.category && (
                 <p className="text-red-500 text-sm mt-1">{errors.category}</p>
