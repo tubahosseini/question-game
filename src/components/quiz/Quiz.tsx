@@ -1,15 +1,34 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { useData } from "../../context/DataContext";
 
 export const Quiz = () => {
   const { data } = useData();
-  let [index, setIndex] = useState(0);
+  const [index, setIndex] = useState(0);
   const [question, setQuestion] = useState(data[index]);
-  let [result, setResult] = useState(false);
+  const [shuffledAnswers, setShuffledAnswers] = useState<string[]>([]);
+  const [result, setResult] = useState(false);
   const [lock, setLock] = useState(false);
   const [score, setScore] = useState(0);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setQuestion(data[index]);
+    setShuffledAnswers(
+      shuffleAnswers([
+        ...data[index].incorrect_answers,
+        data[index].correct_answer,
+      ])
+    );
+  }, [index, data]);
+
+  const shuffleAnswers = (answers: string[]) => {
+    for (let i = answers.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [answers[i], answers[j]] = [answers[j], answers[i]];
+    }
+    return answers;
+  };
 
   const checkAns = (e: any): void => {
     if (!lock) {
@@ -34,8 +53,7 @@ export const Quiz = () => {
       answerOptions.forEach((item) => {
         item.classList.remove("correct", "wrong");
       });
-      setIndex(++index);
-      setQuestion(data[index]);
+      setIndex(index + 1);
       setLock(false); // reset lock for the next question
     }
   };
@@ -74,7 +92,7 @@ export const Quiz = () => {
               {index + 1}. {question.question}
             </h2>
             <ul>
-              {question.incorrect_answers.map((answer, idx) => (
+              {shuffledAnswers.map((answer, idx) => (
                 <li
                   key={idx}
                   onClick={checkAns}
@@ -83,12 +101,6 @@ export const Quiz = () => {
                   {answer}
                 </li>
               ))}
-              <li
-                onClick={checkAns}
-                className="flex items-center h-[50px] md:h-[70px] pl-4 md:pl-[15px] border border-[#686868] rounded-md mb-2 md:mb-[20px] text-[16px] md:text-[20px] cursor-pointer"
-              >
-                {question.correct_answer}
-              </li>
             </ul>
             <button
               onClick={next}
