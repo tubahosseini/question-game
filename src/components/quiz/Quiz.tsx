@@ -77,11 +77,14 @@ export const Quiz = () => {
         {result ? (
           <>
             <h2 className="text-2xl md:text-3xl mt-4 md:mt-6 text-center">
-              Your Score: {(score / data.length) * 100}%
+              Your Score: {Math.floor((score / data.length) * 100)}%
+              <p>
+                ({score} out of {data.length})
+              </p>
             </h2>
             <button
               onClick={reset}
-              className="m-auto w-full max-w-[150px] h-[50px] bg-[#2E1437] text-white text-[20px] md:text-[25px] cursor-pointer rounded-lg font-semibold mt-4 md:mt-6"
+              className="m-auto w-full max-w-[150px] h-[50px] bg-[#2E1437] hover:bg-[#2e1437dc] text-white text-[20px] md:text-[25px] cursor-pointer rounded-lg font-semibold mt-4 md:mt-6"
             >
               Reset
             </button>
@@ -104,7 +107,7 @@ export const Quiz = () => {
             </ul>
             <button
               onClick={next}
-              className="m-auto w-full max-w-[250px] h-[50px] md:h-[65px] bg-[#2E1437] text-white text-[20px] md:text-[25px] cursor-pointer rounded-lg font-semibold"
+              className="m-auto w-full max-w-[250px] h-[50px] md:h-[65px] bg-[#2E1437] text-white text-[20px] md:text-[25px] cursor-pointer rounded-lg font-semibold hover:bg-[#2e1437dc]"
             >
               Next
             </button>

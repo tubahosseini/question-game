@@ -10,7 +10,6 @@
 
 body{
     height: 100vh;
-    /* background-image: linear-gradient(#FBD3E9, #BB377D); */
     background-image: linear-gradient(#948E99, #2E1437);
 }
 
@@ -29,55 +28,4 @@ input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
-}
-
-
-/* animation of the start button */
-.glow-on-hover {
-  width: 220px;
-  height: 50px;
-  border: none;
-  outline: none;
-  color: #fff;
-  background: #2E1437;
-  cursor: pointer;
-  position: relative;
-  z-index: 0;
-  border-radius: 10px;
-}
-
-.glow-on-hover:before {
-  content: '';
-  background: linear-gradient(45deg, #2E1437,#4d3955,#bca7c6b9);
-  position: absolute;
-  top: -2px;
-  left:-2px;
-  background-size: 400%;
-  z-index: -1;
-  filter: blur(5px);
-  width: calc(100%);
-  height: calc(100%);
-  animation: glowing 20s linear infinite;
-  opacity: 0;
-  transition: opacity .1s ease-in-out;
-  border-radius: 10px;
-}
-
-.glow-on-hover:active {
-  color: #2E1437
-}
-
-.glow-on-hover:active:after {
-  background: transparent;
-}
-
-.glow-on-hover:hover:before {
-  opacity: 1;
-}
-
-
-@keyframes glowing {
-  0% { background-position: 0 0; }
-  50% { background-position: 400% 0; }
-  100% { background-position: 0 0; }
 }

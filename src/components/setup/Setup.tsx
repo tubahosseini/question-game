@@ -120,7 +120,7 @@ export default function Setup() {
         <button
           onClick={start}
           type="submit"
-          className="glow-on-hover text-white m-auto w-full max-w-[150px] h-[50px] font-semibold rounded-md"
+          className="glow-on-hover bg-[#2E1437] hover:bg-[#2e1437dc] text-white m-auto w-full max-w-[150px] h-[50px] font-semibold rounded-md"
         >
           Start
         </button>
