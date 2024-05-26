@@ -31,7 +31,7 @@ export default function Setup() {
     }
   };
 
-  // Data Cleaning First!  removing =>   &quot;   &#039;
+  // Data Cleaning First!  removing =>   &quot;   &#039;   &amp;
   const cleanData = (data: dataType[]) => {
     return data.map((item) => ({
       ...item,

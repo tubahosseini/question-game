@@ -4,32 +4,22 @@ import { useData } from "../../context/DataContext";
 
 export const Quiz = () => {
   const { data } = useData();
+
   const [index, setIndex] = useState(0);
   const [question, setQuestion] = useState(data[index]);
-  const [shuffledAnswers, setShuffledAnswers] = useState<string[]>([]);
+  const [sortedAnswers, setSortedAnswers] = useState<string[]>([]);
   const [result, setResult] = useState(false); // if true, show the result page
   const [lock, setLock] = useState(false);
   const [score, setScore] = useState(0);
   const navigate = useNavigate();
 
+  // sorting the answers to shuffle them
   useEffect(() => {
     setQuestion(data[index]);
-    setShuffledAnswers(
-      shuffleAnswers([
-        ...data[index].incorrect_answers,
-        data[index].correct_answer,
-      ])
+    setSortedAnswers(
+      [...data[index].incorrect_answers, data[index].correct_answer].sort()
     );
   }, [index, data]);
-
-  const shuffleAnswers = (answers: string[]) => {
-    for (let i = answers.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [answers[i], answers[j]] = [answers[j], answers[i]];
-    }
-    // console.log(answers);
-    return answers;
-  };
 
   const checkAns = (e: any): void => {
     if (!lock) {
@@ -96,20 +86,15 @@ export const Quiz = () => {
               {index + 1}. {question.question}
             </h2>
             <ul className="flex-grow overflow-y-auto">
-              {shuffledAnswers.map(
-                (
-                  answer,
-                  idx // what is idx?
-                ) => (
-                  <li
-                    key={idx}
-                    onClick={checkAns}
-                    className="flex items-center h-[45px] md:h-[60px] pl-3 md:pl-[12px] border border-[#686868] rounded-md mb-2 md:mb-[18px] text-[14px] md:text-[18px] cursor-pointer"
-                  >
-                    {answer}
-                  </li>
-                )
-              )}
+              {sortedAnswers.map((answer) => (
+                <li
+                  key={answer}
+                  onClick={checkAns}
+                  className="flex items-center h-[45px] md:h-[60px] pl-3 md:pl-[12px] border border-[#686868] rounded-md mb-2 md:mb-[18px] text-[14px] md:text-[18px] cursor-pointer"
+                >
+                  {answer}
+                </li>
+              ))}
             </ul>
             <button
               onClick={next}
