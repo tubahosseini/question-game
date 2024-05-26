@@ -31,11 +31,24 @@ export default function Setup() {
     }
   };
 
-  // Data Cleaning First!  removing and replacing   &quot;   &#039;
+  // Data Cleaning First!  removing =>   &quot;   &#039;
   const cleanData = (data: dataType[]) => {
     return data.map((item) => ({
       ...item,
-      question: item.question.replace(/&quot;/g, '"').replace(/&#039;/g, "'"),
+      question: item.question
+        .replace(/&quot;/g, '"')
+        .replace(/&#039;/g, "'")
+        .replace(/&amp;/g, "&"),
+      correct_answer: item.correct_answer
+        .replace(/&quot;/g, '"')
+        .replace(/&#039;/g, "'")
+        .replace(/&amp;/g, "&"),
+      incorrect_answers: item.incorrect_answers.map((answer) =>
+        answer
+          .replace(/&quot;/g, '"')
+          .replace(/&#039;/g, "'")
+          .replace(/&amp;/g, "&")
+      ),
     }));
   };
 
@@ -77,7 +90,7 @@ export default function Setup() {
 
     setErrors(tempErrors);
 
-    return Object.keys(tempErrors).length === 0;  //Why are we doing it here?!!
+    return Object.keys(tempErrors).length === 0; //Why are we doing it here?!!
   };
 
   console.log(data); // test
@@ -119,7 +132,6 @@ export default function Setup() {
                 <option value="">category</option>
                 <option value="12">Music</option>
                 <option value="11">Film</option>
-                <option value="19">Mathematics</option>
                 <option value="32">Animation</option>
               </select>
               {errors.category && (
