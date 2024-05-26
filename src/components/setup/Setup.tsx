@@ -14,7 +14,7 @@ export interface dataType {
 }
 
 export default function Setup() {
-  const { data, setData } = useData();
+  const { data, setData } = useData(); // an array of objects which contains the questions
   const [amount, setAmount] = useState("");
   const [category, setCategory] = useState("");
   const [difficulty, setDifficulty] = useState("");
@@ -31,21 +31,33 @@ export default function Setup() {
     }
   };
 
+  // Data Cleaning First!  removing and replacing   &quot;   &#039;
+  const cleanData = (data: dataType[]) => {
+    return data.map((item) => ({
+      ...item,
+      question: item.question.replace(/&quot;/g, '"').replace(/&#039;/g, "'"),
+    }));
+  };
+
+  // getting data from API
   async function getData() {
     try {
       const response = await axios.get(
         `https://opentdb.com/api.php?amount=${amount}&category=${category}&difficulty=${difficulty}&type=multiple`
       );
-      setData(response.data.results);
+      const cleanedData = cleanData(response.data.results);
+      setData(cleanedData);
+      // console.log(cleanedData);
       setAmount("");
       setCategory("");
       setDifficulty("");
     } catch (error) {
       console.error("Error fetching data", error);
-      setLoading(false); // Reset loading in case of error
+      setLoading(false); // reset loading in case of error
     }
   }
 
+  // validation function of setup page
   const validate = () => {
     let tempErrors: { [key: string]: string } = {};
 
@@ -65,10 +77,10 @@ export default function Setup() {
 
     setErrors(tempErrors);
 
-    return Object.keys(tempErrors).length === 0;
+    return Object.keys(tempErrors).length === 0;  //Why are we doing it here?!!
   };
 
-  console.log(data); //test
+  console.log(data); // test
 
   return (
     <div className="flex items-center justify-center h-screen px-4 md:px-8 lg:px-16">
