@@ -31,7 +31,7 @@ export default function Setup() {
     }
   };
 
-  // Data Cleaning First!  removing =>   &quot;   &#039;   &amp;
+  // Data Cleaning as much as possible!  removing =>   &quot;   &#039;   &amp;
   const cleanData = (data: dataType[]) => {
     return data.map((item) => ({
       ...item,
@@ -60,7 +60,7 @@ export default function Setup() {
       );
       const cleanedData = cleanData(response.data.results);
       setData(cleanedData);
-      // console.log(cleanedData);
+      // console.log(cleanedData)
       setAmount("");
       setCategory("");
       setDifficulty("");
@@ -90,7 +90,7 @@ export default function Setup() {
 
     setErrors(tempErrors);
 
-    return Object.keys(tempErrors).length === 0; //Why are we doing it here?!!
+    return Object.keys(tempErrors).length === 0;
   };
 
   console.log(data); // test

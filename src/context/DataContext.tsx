@@ -1,5 +1,5 @@
-import React, { createContext, useState, useContext, ReactNode } from "react";
 import { dataType } from "../components/setup/Setup";
+import React, { createContext, useState, useContext, ReactNode } from "react";
 
 interface DataContextType {
   data: dataType[];
